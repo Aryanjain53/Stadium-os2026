@@ -1,75 +1,111 @@
-# Stadium OS // Digital Twin
+# Stadium OS - Virtual Stadium Digital Twin 🏟️
 
-Stadium OS is a futuristic, highly interactive Smart Stadium management platform built with React, Next.js, and Three.js. It features a dual-portal architecture—serving both as an administrative command center for real-time crowd control and as a personalized interactive dashboard for fans attending the match.
+Welcome to **Stadium OS**, an immersive, interactive digital twin platform tailored for IPL cricket fandom. Built specifically to elevate the match-viewing experience for fans of teams like the Rajasthan Royals and Delhi Capitals, this platform brings the atmosphere of a live stadium directly to your screen.
 
-## 🚀 Key Features
+## ✨ Key Features
 
-### 🛡️ Admin Command Center
-- **3D Digital Twin Visualization:** A live, WebGL-powered 3D model of the stadium (`@react-three/fiber`). The stands act as a dynamic heatmap, changing colors (Green -> Yellow -> Red) based on real-time IoT density data.
-- **CCTV Analytics Dashboard:** Simulates AI-powered YOLOv8 object detection on camera feeds to monitor crowd flow and bottlenecks.
-- **Emergency Management System:** Provides a visual evacuation routing map and one-click system overrides to dispatch EMS, open gates, or sound alarms during detected threats (e.g., Fire, Crowd Crush).
-- **Hardware Topology Viewer:** A built-in architecture map showing the integration of AI Cameras, Crowd Sensors, and Edge Devices (ESP32) pushing to LED displays.
-- **Gate Traffic Analysis:** Real-time throughput metrics for stadium entrances.
+- **3D Digital Twin Stadium:** Navigate through a stunning 3D replica of a cricket stadium built using Three.js and React Three Fiber.
+- **Real-Time WebRTC Video Streaming:** Watch matches together! Seamlessly stream your camera feed with other fans in the virtual environment.
+- **Interactive Fan Engagement:** Participate in live polls, share real-time reactions, and chat with fellow supporters as the action unfolds.
+- **User Authentication:** Secure login and registration for an individualized fan experience, alongside dedicated admin portals.
+- **Seamless Scalability:** Ready for production with a seamless Google Cloud Run deployment strategy.
 
-### 🏟️ Interactive Fan Portal
-- **2D Point-of-Interest (POI) Navigation:** Fans can select their exact seat inside their zone on an SVG-generated interactive map. Clicking amenities (Food, Toilets, Emergency Exits, Security) automatically draws an animated, guiding path from their seat to the selected destination.
-- **Personalized Zone Information:** Displays the nearest exit, localized security team availability, and gate traffic status so fans can avoid congested areas.
+---
 
-### 🔐 Secure Authentication
-- Includes a unified, mock-secure access portal using `localStorage`. 
-- **Admin Access:** Use `admin` / `12345` to route to the Command Center.
-- **Fan Access:** Use `bipul` / `12345` to route to the Fan Dashboard, or create a brand new account on the fly.
+## 🛠️ Tech Stack
 
-## 🛠️ Technology Stack
+### Frontend
+- **Framework:** [Next.js](https://nextjs.org/) (React 19)
+- **3D Rendering:** [Three.js](https://threejs.org/), [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber/), [@react-three/drei](https://github.com/pmndrs/drei)
+- **Real-Time Communication:** [Socket.io-client](https://socket.io/)
+- **Icons:** [Lucide React](https://lucide.dev/)
 
-- **Frontend Framework:** Next.js 14+ (App Router)
-- **UI Library:** React 18
-- **3D Rendering:** Three.js, `@react-three/fiber`, `@react-three/drei`
-- **Real-Time Data:** `socket.io-client` (Frontend), `socket.io` (Backend)
-- **Styling:** Custom Vanilla CSS with a futuristic, glassmorphic "Cyberpunk" aesthetic (`#00f0ff` neon accents).
-- **Icons:** `lucide-react`
+### Backend
+- **Server:** [Express.js](https://expressjs.com/) (Node.js)
+- **WebSockets:** [Socket.io](https://socket.io/) (for real-time signaling, chat, and interactive features)
+- **Middleware:** CORS
 
-## ⚙️ Installation & Setup
+---
 
-This project uses a split architecture: a backend data simulator and a frontend Next.js application.
+## 📂 Project Structure
 
-### 1. Start the IoT Backend Server
-The backend simulates live sensor data (crowd density, gate flow, security statuses) via WebSockets.
+```
+stadium-os/
+├── frontend/          # Next.js application (UI, 3D Canvas, WebRTC Client)
+│   ├── app/           # App router components and pages
+│   ├── components/    # Reusable React & 3D components
+│   └── package.json   # Frontend dependencies
+├── backend/           # Express server (WebSockets, Signaling Server)
+│   ├── index.js       # Main entry point
+│   └── package.json   # Backend dependencies
+└── README.md          # Project documentation
+```
+
+---
+
+## 🚀 Getting Started (Local Development)
+
+Follow these instructions to run the Virtual Stadium locally on your machine.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- npm, yarn, or pnpm
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Aryanjain53/Stadium-os2026.git
+cd stadium-os
+```
+
+### 2. Setup the Backend Server
+
+Open a terminal and start the backend WebSockets server:
 
 ```bash
 cd backend
 npm install
-node server.js
+npm start # or node index.js
 ```
-*The WebSocket server will start on `http://localhost:4000`.*
 
-### 2. Start the Frontend Application
-In a new terminal window, run the Next.js app.
+### 3. Setup the Frontend Client
+
+Open a second terminal and start the Next.js development server:
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*The web app will start on `http://localhost:3000`.*
 
-## 🎮 How to Use
+### 4. Experience the Stadium
 
-1. Open `http://localhost:3000` in your browser.
-2. At the Secure Access Portal, choose your experience:
-   - Login as **Admin** (`admin` / `12345`) to explore the 3D stadium heatmap, CCTV, and Emergency systems.
-   - Login as a **Fan** (`bipul` / `12345`) to explore the interactive 2D seat map and POI pathfinding.
-3. Test the real-time nature of the platform by watching the 3D heatmap in the Admin dashboard pulse and change color as the backend data simulator cycles through different crowd densities.
-
-## 📁 Project Structure Highlights
-
-- `/frontend/app/page.js`: Unified Login & Account Creation
-- `/frontend/app/admin/page.js`: Admin Dashboard (3D Heatmap, Alerts)
-- `/frontend/app/user/page.js`: Fan Dashboard (2D Seat Map, Navigation)
-- `/frontend/app/cctv/page.js`: Simulated Computer Vision Dashboard
-- `/frontend/components/Stadium3D.js`: Three.js rendering logic
-- `/frontend/components/SeatMap2D.js`: SVG pathfinding logic for Fan UI
-- `/frontend/app/globals.css`: The source of truth for the futuristic design tokens.
+Open your web browser and navigate to `http://localhost:3000`. You will be prompted to allow camera and microphone access for the WebRTC features.
 
 ---
-*Developed for advanced stadium management and interactive fan engagement.*
+
+## ☁️ Deployment
+
+Stadium OS is designed for a layman-friendly deployment experience using **Google Cloud Run**. 
+
+1. Containerize both the `frontend` and `backend` using Docker.
+2. Push your images to the Google Container Registry or Artifact Registry.
+3. Deploy the backend to a Cloud Run service (ensure WebSockets/HTTP/2 are enabled if required).
+4. Deploy the frontend to another Cloud Run service, setting the environment variables to point to your hosted backend URL.
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Feel free to open issues or submit pull requests for any enhancements, bug fixes, or new features.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+*Stadium OS - Redefining sports fandom for the digital era.*
